@@ -1,6 +1,17 @@
 # EtcdClient
 
-Elixir etcd client
+Elixir based ETCD client.
+
+Etcd client supports the following etcd commands:
+- put
+- get
+- delete
+- watch
+- lease_grant/lease_revoke
+- set of txn commands
+
+This library uses elixir grpc client (https://github.com/elixir-grpc/grpc) to communicate
+with ETCD cluster. 
 
 ## Installation
 
@@ -185,5 +196,7 @@ iex(5)> EtcdClient.Client.lease_revoke(7587853166505588501)
     }}
 ```
 
-
+## TODO
+- tests
+- documentation
 
