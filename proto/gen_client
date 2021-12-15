@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -ex
+
+export ELIXIR_ESCRIPTS=$HOME/.asdf/installs/elixir/1.11.2/.mix/escripts
+export PATH=$PATH:$ELIXIR_ESCRIPTS
+
+export ETCD=$HOME/erlang_projects/etcd
+export PROJECT=$HOME/erlang_projects
+export GOOGLE_PROJECT=$HOME/go_projects
+
+export WALPB=$ETCD/wal/walpb
+export ETCDSERVERPB=$ETCD/etcdserver/etcdserverpb
+export SNAPPB=$ETCD/etcdserver/api/snap/snappb
+export RAFT=$ETCD/raft/raftpb
+export MVCC=$ETCD/mvcc/mvccpb
+export LEASEPB=$ETCD/lease/leasepb
+export AUTHPB=$ETCD/auth/authpb
+export V3LOCKPB=$ETCD/etcdserver/api/v3lock/v3lockpb
+export V3SELECTION=$ETCD/etcdserver/api/v3election/v3electionpb
+
+export ETCD_PROTO=$WALPB:$AUTHPB:$MVCC:$RAFT:$ETCDSERVERPB:$V3SELECTION:$SNAPPB:$V3LOCKPB:$LEASEPB
+export GOGO_PROTO=$HOME/go_projects/protobuf
+export GOOGLE_PROTO=$HOME/go_projects/googleapis
+export PROTOC_PATH=$GOOGLE_PROJECT:$PROJECT:$ETCD:$ETCD_PROTO:$GOGO_PROTO:$GOOGLE_PROTO
+export OUT_LIB=$HOME/erlang_projects/services/etcd_client/lib
+
+export ETCD_PROTO=$AUTHPB:$MVCC:$RAFT:$ETCDSERVERPB:$V3SELECTION:$SNAPPB:$V3LOCKPB:$LEASEPB
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $WALPB/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $SNAPPB/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $RAFT/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $MVCC/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $LEASEPB/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $AUTHPB/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $V3LOCKPB/*.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $V3SELECTION/*.proto;
+
+export ETCD_PROTO=$WALPB:$AUTHPB:$MVCC:$RAFT:$V3SELECTION:$SNAPPB:$V3LOCKPB:$LEASEPB
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $ETCDSERVERPB/rpc.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $ETCDSERVERPB/etcdserver.proto;
+protoc --elixir_out=plugins=grpc:$OUT_LIB --proto_path=$PROTOC_PATH:. $ETCDSERVERPB/raft_internal.proto;
