@@ -1,6 +1,6 @@
 import Config
 
 config :etcd_client,
-  endpoints: {:system, "AEON_ETCD_CLUSTER"},
-  user: {:system, "AEON_ETCD_USER"},
-  password: {:system, "AEON_ETCD_PASSWORD"}
+  endpoints: {:system, "ETCD_CLUSTER"},
+  user: {:system, "ETCD_USER"},
+  password: {:system, "ETCD_PASSWORD"}

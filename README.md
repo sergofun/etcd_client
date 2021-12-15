@@ -5,9 +5,10 @@ Elixir etcd client
 ## Installation
 
 ```elixir
+
 def deps do
   [
-      {:etcd_client, git: "git@gitlab.aeon.world:tools/etcd_client.git", branch: "master"},
+      {:etcd_client, git: "https://github.com/sergofun/etcd_client.git"},
   ]
 end
 ```
